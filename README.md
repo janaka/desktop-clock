@@ -2,7 +2,9 @@
 
 A desktop digital clock built using an ESP32 microcontroller, Max7219 led metrix display, and Ardunio lang
 
-Uses [this MAX7219 library](https://github.com/squix78/MAX7219LedMatrix)
+It syncs time from an Intenret time server on bootup and then once a day while powered.
+
+Uses [this MAX7219 library](https://github.com/janaka/esp32-led-matrix). Forked from [nhatuan84](https://github.com/nhatuan84/esp32-led-matrix) and modified to support the max7219 hardware variation I have.
 
 ## Contributions
 
@@ -10,7 +12,7 @@ Uses [this MAX7219 library](https://github.com/squix78/MAX7219LedMatrix)
 
 - Open Arduino IDE > preferences, note the sketchbook location
 - `cd <sketchbook location>/libraries`
-- `git clone https://github.com/squix78/MAX7219LedMatrix.git`
+- `git clone https://github.com/janaka/esp32-led-matrix`
 
 ### Tool Dependencies
 
@@ -26,9 +28,18 @@ Using VS Code
 [Arduino VS Code extension](https://marketplace.visualstudio.com/items?itemName=vsciot-vscode.vscode-arduino)
 Depends on the Arduino IDE
 
+### Configure WiFi
+
+- Rename `1.wifi_config.tmp` to `1.wifi_config.ino`
+- Add your wifi details.
+
 ### Uploading a sketch in VS Code
 
 Upload from VS Code: `option + command + u`
+
+### Debug
+
+Look at the serial monitor output for information.
 
 ## ESP-WROM-32 devkit pinout schema
 
