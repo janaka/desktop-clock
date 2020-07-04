@@ -51,6 +51,6 @@ DIN -> GPIO 12
 
 ## ESP-WROM-32 devkit pinout schema
 
+You may have a different variation of the ESP32 dev board. Check before connecting.
+
 ![ESP-WROM-32 devkit pinout schema](./docs/assets/esp-wrom-32_devkit_schema.jpg)
-
-
