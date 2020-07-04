@@ -6,11 +6,11 @@
 
 // to configure wifi follow instruction in `1.wifi_config.tmp`
 
-#define NUMBER_OF_DEVICES 4 //number of led matrix connect in series
-#define CS_PIN 15           // GPIO 15
-#define CLK_PIN 14
-#define MISO_PIN 2 //we do not use this pin just fill to match constructor
-#define MOSI_PIN 12
+#define NUMBER_OF_DEVICES 4 //number of led matrix connected in series
+#define CS_PIN 15   // CS -> GPIO 15
+#define CLK_PIN 14  // CLK -> GPIO 14
+#define MISO_PIN 2  // we do not use this pin just fill to match constructor
+#define MOSI_PIN 12 // DIN -> GPIO 12
 
 LedMatrix ledMatrix = LedMatrix(NUMBER_OF_DEVICES, CLK_PIN, MISO_PIN, MOSI_PIN, CS_PIN);
 

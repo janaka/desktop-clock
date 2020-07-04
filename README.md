@@ -1,6 +1,6 @@
 # Desktop Clock
 
-A desktop digital clock built using an ESP32 microcontroller, Max7219 led metrix display, and Ardunio lang
+A desktop digital clock built using an ESP32 microcontroller, MAX7219 led metrix display, and Arduino lang.
 
 It syncs time from an Intenret time server on bootup and then once a day while powered.
 
@@ -41,6 +41,16 @@ Upload from VS Code: `option + command + u`
 
 Look at the serial monitor output for information.
 
+### Hardware wiring diagram
+
+coming
+
+CS  -> GPIO 15
+CLK -> GPIO 14
+DIN -> GPIO 12
+
 ## ESP-WROM-32 devkit pinout schema
 
 ![ESP-WROM-32 devkit pinout schema](./docs/assets/esp-wrom-32_devkit_schema.jpg)
+
+
