@@ -1,0 +1,8 @@
+// Replace with your network credentials.
+// Rename the file to `.ino`.
+// the filename `1.wifi_config.ino` is in `.gitignore` for security.
+// if you rename, make sure to update `.gitignore`.
+// the file name needs to be alphabetically above `sketch.ino`.
+
+//const char* ssid = "your wifi ssid here";
+//const char* password = "wifi secret here";
