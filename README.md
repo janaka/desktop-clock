@@ -45,9 +45,9 @@ Look at the serial monitor output for information.
 
 coming
 
-CS  -> GPIO 15
-CLK -> GPIO 14
-DIN -> GPIO 12
+- CS  -> GPIO 15
+- CLK -> GPIO 14
+- DIN -> GPIO 12
 
 ## ESP-WROM-32 devkit pinout schema
 
