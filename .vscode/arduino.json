@@ -1,7 +1,7 @@
 {
     "board": "esp32:esp32:nodemcu-32s",
     "configuration": "FlashFreq=80,UploadSpeed=921600",
-    "port": "/dev/tty.SLAB_USBtoUART",
+    "port": "/dev/tty.usbserial-0001",
     "programmer": "AVR ISP",
     "sketch": "src/sketch.ino/sketch.ino"
 }
