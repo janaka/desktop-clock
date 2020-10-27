@@ -96,8 +96,8 @@ void printLocalTime()
 void syncInternetTime()
 {
   const char *ntpServer = "pool.ntp.org";
-  const long gmtOffset_sec = 0;        //adjust this to you timezone
-  const int daylightOffset_sec = 3600; // +1hr
+  const long gmtOffset_sec = 0;     //adjust this to you timezone. 0 is GMT/UTC
+  const int daylightOffset_sec = 0; //3600; // +1hr for BST
 
   wifiConnect();
 
