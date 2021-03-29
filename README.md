@@ -20,8 +20,8 @@ Just the Arduino IDE
 [Arduino IDE](https://www.arduino.cc/en/main/software#download)
 
 Board manager URLs - one off config
-`http://arduino.esp8266.com/stable/package_esp8266com_index.json`
-`https://dl.espressif.com/dl/package_esp32_index.json`
+- `http://arduino.esp8266.com/stable/package_esp8266com_index.json`
+- `https://dl.espressif.com/dl/package_esp32_index.json`
 
 Using VS Code
 
@@ -35,7 +35,9 @@ Depends on the Arduino IDE
 
 ### Uploading a sketch in VS Code
 
-Upload from VS Code: `option + command + u`
+Serial port should show as `/dev/tty.SLAB_USBtoUART`.
+
+Upload from VS Code: `option + command + u`.
 
 ### Debug
 
