@@ -97,7 +97,7 @@ void syncInternetTime()
 {
   const char *ntpServer = "pool.ntp.org";
   const long gmtOffset_sec = 0;     //adjust this to you timezone. 0 is GMT/UTC
-  const int daylightOffset_sec = 0; //3600; // +1hr for BST
+  const int daylightOffset_sec = 3600; //3600 for BST, 0 for GMT
 
   wifiConnect();
 
