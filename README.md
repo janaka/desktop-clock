@@ -2,9 +2,18 @@
 
 A desktop digital clock built using an ESP32 microcontroller, MAX7219 led matrix display, and Arduino lang.
 
-It syncs time from an Internet time server on boot-up and then once a day while powered.
+- Syncs time from an Internet time server (NTP) on boot-up
+- Syncs time once a day from Internet servers to prevent drift.
+- Connects to WiFi just before Internet time sync and then disconnects when done to conserve power
+- Automatically adjusts for BST
 
-Uses [this MAX7219 library](https://github.com/janaka/esp32-led-matrix). Forked from [@nhatuan84](https://github.com/nhatuan84/esp32-led-matrix) and modified to support the max7219 hardware variation I have.
+Dependencies:
+
+- SPI.h
+- WiFi.h
+- LedMatrix.h [MAX7219 library](https://github.com/janaka/esp32-led-matrix). Forked from [@nhatuan84](https://github.com/nhatuan84/esp32-led-matrix) and modified to support the max7219 hardware variation I have.
+- time.h [ref](https://en.wikibooks.org/wiki/C_Programming/time.h), [source](https://github.com/esp8266/Arduino/blob/master/cores/esp8266/time.cpp) - standard C library.
+  - Not using TimeLib.h by Michael Margolis because we don't need all that functionality. [Github](https://www.pjrc.com/teensy/td_libs_Time.html), [Docs](https://www.pjrc.com/teensy/td_libs_Time.html)
 
 ## Contributions
 
@@ -40,12 +49,12 @@ Depends on the Arduino IDE
 ### Uploading a sketch in VS Code
 
 - Serial port should show as `/dev/tty.SLAB_USBtoUART`.
-  - this needs the SLAB driver to be install 
+  - this needs the SLAB driver to be install
 - Upload from VS Code: `option + command + u`.
 
 ### Debug
 
-Look at the serial monitor output for information.
+Look at the serial monitor output for information using the Arduino IDE
 
 ### Hardware wiring diagram
 

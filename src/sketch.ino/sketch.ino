@@ -32,12 +32,12 @@ void setup()
 
 void loop()
 {
-  // Serial.print(".");
   struct tm timeinfo;
   char strTime[5];
   char strHr[3];
   char strMin[3];
   char strSec[3];
+
   if (!getLocalTime(&timeinfo))
   {
     Serial.println("Failed to obtain time");
@@ -88,25 +88,40 @@ void printLocalTime()
   Serial.println(&timeinfo, "%A, %B %d %Y %H:%M:%S");
   //Serial.println((unsigned int)&timeinfo.tm_sec);
 
-  //tm_min
+  //tm_hour, tm_min 
 
-  //tm_hour
 }
 
 void syncInternetTime()
 {
+  struct tm ti;
   const char *ntpServer = "pool.ntp.org";
   const long gmtOffset_sec = 0;     //adjust this to you timezone. 0 is GMT/UTC
-  const int daylightOffset_sec = 3600; //3600 for BST, 0 for GMT
+  unsigned int daylightOffset_sec = 0; //3600 for BST, 0 for GMT
+  Serial.print("test substract 0, (25+(7-0))=");
+  Serial.println((25+(7-0)));
 
-  wifiConnect();
+  if (ti.tm_mon>2 && ti.tm_mon<9) { // 0 = January
+     // Apr-Sept is BST for sure  
+     daylightOffset_sec= 3600;
+  } else if (ti.tm_mon==2 && ti.tm_mday>24 && (ti.tm_mday+(7-ti.tm_wday)) > 31) {
+    // BST starts last Sun in March. Cover last Sun to 31st. Earliest Sun is 25th.  0 = Sun. 2 = Feb 
+    daylightOffset_sec= 3600;
+  } else if (ti.tm_mon==9 && ti.tm_mday<25 && (ti.tm_mday+(7-ti.tm_wday)) < 32) { 
+    // BST ends last Sun in Oct. Cover to the last Sun. Earliest Sun is 25th. 0 = Sun. 9 = Oct
+    daylightOffset_sec= 3600;
+  } else {
+    daylightOffset_sec = 0;
+  }
+
+  wifiConnect(); // jit connect
 
   //init and get the time
   configTime(gmtOffset_sec, daylightOffset_sec, ntpServer);
   Serial.println("Set time from internet time server.");
   printLocalTime();
 
-  wifiDisconnect();
+  wifiDisconnect(); // save power
   
 }
 
