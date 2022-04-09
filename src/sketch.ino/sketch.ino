@@ -98,31 +98,54 @@ void syncInternetTime()
   const char *ntpServer = "pool.ntp.org";
   const long gmtOffset_sec = 0;     //adjust this to you timezone. 0 is GMT/UTC
   unsigned int daylightOffset_sec = 0; //3600 for BST, 0 for GMT
-  Serial.print("test substract 0, (25+(7-0))=");
-  Serial.println((25+(7-0)));
 
-  if (ti.tm_mon>2 && ti.tm_mon<9) { // 0 = January
+  wifiConnect(); // jit connect
+  configTime(gmtOffset_sec, daylightOffset_sec, ntpServer); // initial config to sync date before setting daylightoffset
+  if (!getLocalTime(&ti))
+  {
+    Serial.println("Failed to obtain time in syncInternetTime()");
+    //return;
+  }
+  unsigned int tm_mon = (unsigned int)ti.tm_mon; // month 0=Jan,1=Feb,2=Mar,3=Apr,4=May,5=Jun,6=Jul,7=Aug,8=Sept,9=Oct,10=Nov,11=Dec
+  unsigned int tm_mday = (unsigned int)ti.tm_mday; // date 
+  unsigned int tm_wday = (unsigned int)ti.tm_wday; // day of week 0=Sun,1=Mon...6=Sat
+  Serial.print("mon=");
+  Serial.print(tm_mon);
+  Serial.print(", mday=");
+  Serial.print(tm_mday);
+  Serial.print(", wday=");
+  Serial.println(tm_wday);
+
+  // Self contained UK daylight saving algo. 
+  // Not accurate to the hour of change which is good enough for me. 
+  // i.e. switch at 12am rather than BST at 1am and into GMT at 2am. 
+  // Use at your own risk 
+  if (tm_mon>2 && tm_mon<9) {
      // Apr-Sept is BST for sure  
      daylightOffset_sec= 3600;
-  } else if (ti.tm_mon==2 && ti.tm_mday>24 && (ti.tm_mday+(7-ti.tm_wday)) > 31) {
+     Serial.println("cond1");
+  } else if (tm_mon==2 && tm_mday>24 && (tm_mday+(7-tm_wday)) > 31) {
     // BST starts last Sun in March. Cover last Sun to 31st. Earliest Sun is 25th.  0 = Sun. 2 = Feb 
+    Serial.println("cond2");
     daylightOffset_sec= 3600;
-  } else if (ti.tm_mon==9 && ti.tm_mday<25 && (ti.tm_mday+(7-ti.tm_wday)) < 32) { 
+  } else if (tm_mon==9 && ( tm_mday<24 || (tm_mday+(7-tm_wday)) < 32 )) { 
     // BST ends last Sun in Oct. Cover to the last Sun. Earliest Sun is 25th. 0 = Sun. 9 = Oct
+    Serial.println("cond3");
     daylightOffset_sec= 3600;
   } else {
+    Serial.println("catch all");
     daylightOffset_sec = 0;
   }
 
-  wifiConnect(); // jit connect
-
-  //init and get the time
+  Serial.print("after logic, daylightOffset_sec=");
+  Serial.println(daylightOffset_sec);
+  
+  //sync with adjusted daylight offset
   configTime(gmtOffset_sec, daylightOffset_sec, ntpServer);
   Serial.println("Set time from internet time server.");
   printLocalTime();
 
   wifiDisconnect(); // save power
-  
 }
 
 void wifiConnect()

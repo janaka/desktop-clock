@@ -5,9 +5,16 @@ A desktop digital clock built using an ESP32 microcontroller, MAX7219 led matrix
 - Syncs time from an Internet time server (NTP) on boot-up
 - Syncs time once a day from Internet servers to prevent drift.
 - Connects to WiFi just before Internet time sync and then disconnects when done to conserve power
-- Automatically adjusts for BST
+- Automatically adjusts UK daylight saving
 
-Dependencies:
+## Design Principles
+
+- Optimise for power consumption.
+  - Minimise external service dependencies.
+  - JIT connect to WiFi for external calls. Disconnect immediately after.
+- Minimise third part library dependencies.
+
+## Dependencies
 
 - SPI.h
 - WiFi.h
